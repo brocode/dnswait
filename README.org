@@ -1,6 +1,6 @@
 * dnswait
 
-  [[https://travis-ci.org/brocode/goat][file:https://travis-ci.org/brocode/dnswait.svg?branch=master]]
+  [[https://travis-ci.org/brocode/dnswait][file:https://travis-ci.org/brocode/dnswait.svg?branch=master]]
 
   will wait for a given domain to resolve to a given IP.
 
