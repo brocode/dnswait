@@ -1,0 +1,40 @@
+{
+	"ImportPath": "github.com/brocode/dnswait",
+	"GoVersion": "go1.9",
+	"GodepVersion": "v80",
+	"Deps": [
+		{
+			"ImportPath": "github.com/0xAX/notificator",
+			"Rev": "88d57ee9043ba88d6a62e437fa15dda1ca0d2b59"
+		},
+		{
+			"ImportPath": "github.com/briandowns/spinner",
+			"Comment": "1.0-2-gb3ed21e",
+			"Rev": "b3ed21e9d3b2af92b077f7d21edd80599b8fb97f"
+		},
+		{
+			"ImportPath": "github.com/fatih/color",
+			"Comment": "v1.6.0",
+			"Rev": "507f6050b8568533fb3f5504de8e5205fa62a114"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-colorable",
+			"Comment": "v0.0.9-13-g7dc3415",
+			"Rev": "7dc3415be66d7cc68bf0182f35c8d31f8d2ad8a7"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-isatty",
+			"Comment": "v0.0.3-7-g6ca4dbf",
+			"Rev": "6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c"
+		},
+		{
+			"ImportPath": "github.com/urfave/cli",
+			"Comment": "v1.20.0-55-ga1c7408",
+			"Rev": "a1c7408de3f632d86eee604a3bb755f1ffb68226"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/unix",
+			"Rev": "37707fdb30a5b38865cfb95e5aab41707daec7fd"
+		}
+	]
+}
