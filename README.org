@@ -10,3 +10,9 @@
     dnswait --domain ipv6.google.com --ip 2a00:1450:4002:80b::200e
     dnswait --domain reddit.com --ip 151.101.65.140
   #+END_SRC
+
+  dnswait uses https://github.com/0xAX/notificator to support the following notifications:
+
+  - Linux: ~notify-send~ or ~kdialog~
+  - OSX: ~terminal-notifier~ or ~osascript~
+  - Windows: ~growlnotify~
