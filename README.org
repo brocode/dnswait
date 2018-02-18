@@ -2,8 +2,6 @@
 
   [[https://travis-ci.org/brocode/dnswait][file:https://travis-ci.org/brocode/dnswait.svg?branch=master]]
 
-  will wait for a given domain to resolve to a given IP.
-
 ** Why?
 
   You setup a new server, take the IP and let your example.com domain point towards it. Now you have to wait some time.
