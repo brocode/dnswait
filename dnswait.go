@@ -6,7 +6,6 @@ import (
   "github.com/urfave/cli"
 
   "fmt"
-  "log"
   "net"
   "net/url"
   "os"
@@ -55,25 +54,23 @@ func main() {
 
   app.Action = func(context *cli.Context) error {
     if !context.IsSet("domain") {
-      log.Fatalln("Please set a domain")
+      return cli.NewExitError("Please set a domain", 1)
     }
 
     if !context.IsSet("ip") {
-      log.Fatalln("Please set an IP")
+      return cli.NewExitError("Please set an IP", 1)
     }
 
     var ip = net.ParseIP(Options.IpAddress)
 
     if ip == nil {
-      log.Fatalf("Cannot parse ip %s", Options.IpAddress)
+      return cli.NewExitError(fmt.Sprintf("Cannot parse ip %s", Options.IpAddress), 1)
     }
 
     domain, err := url.Parse(Options.Domain)
 
     if err != nil {
-      log.Println(err)
-
-      os.Exit(1)
+      return cli.NewExitError(err, 1)
     }
 
     var duration = 20 * time.Minute
@@ -86,54 +83,72 @@ func main() {
     spinner.Start()
     spinner.Suffix = fmt.Sprintf(" Waiting %s for %s to point to %s...", duration, domain, ip.String())
 
+    defer spinner.Stop()
+
     ticker := time.NewTicker(5 * time.Second)
 
-    notify := notificator.New(notificator.Options{
-      AppName: "dnswait",
-    })
+    defer ticker.Stop()
 
-    go func() {
+    errorChannel := make(chan error)
+    successChannel := make(chan string)
+
+    defer close(errorChannel)
+    defer close(successChannel)
+
+    go func() error {
       for _ = range ticker.C {
         ips, err := net.LookupHost(domain.String())
 
         if err != nil {
-          log.Println(err)
-
-          os.Exit(1)
+          errorChannel <- err
         }
 
         for _, foundIp := range ips {
           if foundIp == ip.String() {
-            if !Options.DisableNotification {
-              notify.Push(
-                "dnswait succeeded!",
-                fmt.Sprintf("%s resolves to %s!", domain, ip.String()),
-                "",
-                notificator.UR_NORMAL,
-              )
-            }
-
-            os.Exit(0)
+            successChannel <- fmt.Sprintf("%s resolves to %s!", domain, ip.String())
           }
         }
       }
+
+      return nil
     }()
 
-    <-time.After(duration)
+    select {
+    case err := <-errorChannel:
+      return cli.NewExitError(err, 1)
 
-    ticker.Stop()
-    spinner.Stop()
+    case success := <-successChannel:
+      if !Options.DisableNotification {
+        sendNotification(
+          "dnswait succeeded!",
+          success,
+          notificator.UR_NORMAL,
+        )
+      }
 
-    if !Options.DisableNotification {
-      notify.Push("dnswait failed!",
-        fmt.Sprintf("%s does not resolve to %s!", domain, ip.String()),
-        "",
-        notificator.UR_CRITICAL,
-      )
+      return nil
+
+    case <-time.After(duration):
+      if !Options.DisableNotification {
+        sendNotification("dnswait failed!",
+          fmt.Sprintf("%s does not resolve to %s!", domain, ip.String()),
+          notificator.UR_CRITICAL,
+        )
+      }
+
+      return cli.NewExitError("", 1)
     }
 
-    return cli.NewExitError("", 1)
+    return nil
   }
 
   app.Run(os.Args)
+}
+
+func sendNotification(title string, message string, urgency string) {
+  notify := notificator.New(notificator.Options{
+    AppName: "dnswait",
+  })
+
+  notify.Push(title, message, "", urgency)
 }
