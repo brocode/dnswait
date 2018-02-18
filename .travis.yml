@@ -1,0 +1,18 @@
+language: go
+go:
+  - master
+env:
+  - "PATH=/home/travis/gopath/bin:$PATH"
+before_install:
+  - go get github.com/tools/godep
+script:
+  - go install
+  - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o dnswait-linux-amd64 .
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file:
+    - dnswait-linux-amd64
+  skip_cleanup: true
+  on:
+    tags: true
