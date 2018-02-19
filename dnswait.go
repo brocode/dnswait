@@ -25,7 +25,7 @@ func main() {
     Version:     "0.1.0",
     Author:      "Stefan Ruzitschka",
     Description: "Waits for given domain to resolve to a given IP.\n   A notification will be sent, when the program ends or the domain successfully resolves to the IP.\n\n   Supported notifications:\n   - Linux: notify-send or kdialog \n   - OSX: terminal-notifier or osascript \n   - Windows: growlnotify",
-    UsageText:   "dnswait --domain <domain> --ip <ipv4|ipv6> [--time <minutes>] [--disable-notification]\n\n   dnswait --domain ipv6.google.com --ip 2a00:1450:4002:80b::200e\n   dnswait --domain reddit.com --ip 151.101.65.140",
+    UsageText:   "dnswait --domain <domain> --ip <ipv4|ipv6> [--time <minutes>] [--disable-notification]\n\n   dnswait --domain sprint.net --ip 2600::\n   dnswait --domain reddit.com --ip 151.101.65.140",
     Flags: []cli.Flag{
       &cli.StringFlag{
         Name:        "domain",
