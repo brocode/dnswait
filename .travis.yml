@@ -8,11 +8,17 @@ before_install:
 script:
   - go install
   - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o dnswait-linux-amd64 .
+  - CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -a -installsuffix cgo -o dnswait-darwin-amd64 .
+  - CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -installsuffix cgo -o dnswait-windows-amd64 .
+  - CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -a -installsuffix cgo -o dnswait-windows-386 .
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
   file:
     - dnswait-linux-amd64
+    - dnswait-darwin-amd64
+    - dnswait-windows-amd64
+    - dnswait-windows-386
   skip_cleanup: true
   on:
     tags: true
