@@ -9,7 +9,7 @@
 
 ** Examples
   #+BEGIN_SRC bash
-    dnswait --domain ipv6.google.com --ip 2a00:1450:4002:80b::200e
+    dnswait --domain sprint.net --ip 2600::
     dnswait --domain reddit.com --ip 151.101.65.140
   #+END_SRC
 

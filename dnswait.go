@@ -81,7 +81,7 @@ func main() {
 
     spinner := spin.New(spin.CharSets[25], 100*time.Millisecond)
     spinner.Start()
-    spinner.Suffix = fmt.Sprintf(" Waiting %s for %s to point to %s...", duration, domain, ip.String())
+    spinner.Suffix = fmt.Sprintf(" Waiting %s for %s to point to %s ...", duration, domain, ip.String())
 
     defer spinner.Stop()
 
