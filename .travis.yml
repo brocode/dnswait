@@ -17,8 +17,8 @@ deploy:
   file:
     - dnswait-linux-amd64
     - dnswait-darwin-amd64
-    - dnswait-windows-amd64
-    - dnswait-windows-386
+    - dnswait-windows-amd64.exe
+    - dnswait-windows-386.exe
   skip_cleanup: true
   on:
     tags: true
