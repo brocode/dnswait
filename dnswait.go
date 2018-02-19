@@ -22,7 +22,7 @@ var Options = &struct {
 func main() {
   app := &cli.App{
     Name:        "dnswait",
-    Version:     "0.1.0",
+    Version:     "1.0.0",
     Author:      "Stefan Ruzitschka",
     Description: "Waits for given domain to resolve to a given IP.\n   A notification will be sent, when the program ends or the domain successfully resolves to the IP.\n\n   Supported notifications:\n   - Linux: notify-send or kdialog \n   - OSX: terminal-notifier or osascript \n   - Windows: growlnotify",
     UsageText:   "dnswait --domain <domain> --ip <ipv4|ipv6> [--time <minutes>] [--disable-notification]\n\n   dnswait --domain sprint.net --ip 2600::\n   dnswait --domain reddit.com --ip 151.101.65.140",
