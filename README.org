@@ -4,8 +4,8 @@
 
 ** Why?
 
-  You setup a new server, take the IP and let your example.com domain point towards it. Now you have to wait some time.
-  ~dnswait~ can help you with that task. It will notify you when the task is successfully done!
+  Waiting for domains resolving to a certain IP can be tedious. ~dnswait~ can help you in the process of waiting.
+  After the domain successfully points towards the given IP, ~dnswait~ will send you a notification :)
 
 ** Examples
   #+BEGIN_SRC bash
